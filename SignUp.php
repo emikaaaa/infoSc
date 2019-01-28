@@ -1,5 +1,5 @@
 <?php
-//require 'password.php';   // password_hash()はphp 5.5.0以降の関数のため、バージョンが古くて使えない場合に使用
+
 // セッション開始
 session_start();
 
@@ -33,7 +33,8 @@ if (isset($_POST["signUp"])) {
 
         // 3. エラー処理
         try {
-            $pdo = new PDO('mysql:host=127.0.0.1;dbname=Members;charset=utf8;','root','emika0304',array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+            $pdo = new PDO('mysql:host=127.0.0.1;dbname=Members;charset=utf8;','root','emika0304',
+            array(PDO::ATTR_EMULATE_PREPARES => false));
 
             $stmt = $pdo->prepare("INSERT INTO Members(name, password) VALUES (?, ?);");
 

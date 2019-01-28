@@ -39,21 +39,22 @@ if (isset($_POST["login"])) {
             if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { 
                 if (password_verify($password, $row['password'])) { // パスワードがハッシュにマッチするかどうかを調べる. $arr[キー] = 値;.
                     session_regenerate_id(true);//セッションハイジャック対策.
-
+                    
                     // 入力したIDのユーザー名を取得
-                    $id = $row['id']; 
+                    $id = $row['userid']; 
                     $sql = "SELECT * FROM Members WHERE id = $id";  //入力したIDからユーザー名を取得
                     $stmt = $pdo->query($sql);
                     
                     /*foreach ($stmt as $row) {
                         $row['name'];  // ユーザー名
                     }*/
+                    
                     $_SESSION["NAME"] = $row['name'];
-                    header("Location: Main.php");  // メイン画面へ遷移
+                    header("Location: index02.php");  
                     exit();  // 処理終了
                 } else {
                     // 認証失敗
-                    $errorMessage = 'ユーザーIDあるいはパスワードに誤りがあります。';
+                    $errorMessage = 'ユーザーIDあるjuhはパスワードに誤りがあります。';
                 }
             } else {
                 // 4. 認証成功なら、セッションIDを新規に発行する
